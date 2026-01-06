@@ -4,6 +4,6 @@ class AppPages {
   static const kalkulator = '/kalkulator';
 
   static final pages = {
-    kalkulator: (context) => const KalkulatorPage(),
+    kalkulator: (context) => KalkulatorPage(),
   };
 }

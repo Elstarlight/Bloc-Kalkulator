@@ -6,23 +6,11 @@ import 'package:projectsemester2/states/kalkulator_state.dart';
 import 'package:projectsemester2/widgets/button.dart';
 import 'package:projectsemester2/widgets/textfield.dart';
 
-class KalkulatorPage extends StatefulWidget {
-  const KalkulatorPage({super.key});
+class KalkulatorPage extends StatelessWidget {
+  KalkulatorPage({super.key});
 
-  @override
-  State<KalkulatorPage> createState() => _KalkulatorPageState();
-}
-
-class _KalkulatorPageState extends State<KalkulatorPage> {
-  final angka1Controller = TextEditingController();
-  final angka2Controller = TextEditingController();
-
-  @override
-  void dispose() {
-    angka1Controller.dispose();
-    angka2Controller.dispose();
-    super.dispose();
-  }
+  final TextEditingController angka1Controller = TextEditingController();
+  final TextEditingController angka2Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +21,18 @@ class _KalkulatorPageState extends State<KalkulatorPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-
-              /// HEADER
               const Text(
-              'Aritmatik Kalkulator',
-             textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 21,
-                fontWeight: FontWeight.w300,
-                letterSpacing: 0.5,
-               ),
+                'Aritmatik Kalkulator',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 21,
+                  fontWeight: FontWeight.w300,
+                  letterSpacing: 0.5,
+                ),
               ),
 
               const SizedBox(height: 24),
 
-              /// INPUT KIRI - KANAN
               Row(
                 children: [
                   Expanded(
@@ -68,7 +53,6 @@ class _KalkulatorPageState extends State<KalkulatorPage> {
 
               const SizedBox(height: 20),
 
-              /// BUTTON OPERASI
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: ['+', '-', 'x', ':'].map((op) {
@@ -80,9 +64,9 @@ class _KalkulatorPageState extends State<KalkulatorPage> {
                       final b =
                           double.tryParse(angka2Controller.text) ?? 0;
 
-                      context.read<KalkulatorBloc>().add(
-                            HitungEvent(a, b, op),
-                          );
+                      context
+                          .read<KalkulatorBloc>()
+                          .add(HitungEvent(a, b, op));
                     },
                   );
                 }).toList(),
@@ -90,7 +74,6 @@ class _KalkulatorPageState extends State<KalkulatorPage> {
 
               const SizedBox(height: 30),
 
-              /// HASIL
               BlocBuilder<KalkulatorBloc, KalkulatorState>(
                 builder: (context, state) {
                   return Center(
@@ -109,7 +92,6 @@ class _KalkulatorPageState extends State<KalkulatorPage> {
         ),
       ),
 
-      /// RESET DI BOTTOM
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
         child: KalkulatorButton(
